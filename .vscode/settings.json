@@ -1,0 +1,13 @@
+{
+    "Lua.diagnostics.globals": [
+        "import",
+        "debugLog",
+        "term",
+        "colors",
+        "sleep",
+        "parallel",
+        "keys",
+        "textutils",
+        "fs"
+    ],
+}
