@@ -8,6 +8,7 @@
         "parallel",
         "keys",
         "textutils",
-        "fs"
+        "fs",
+        "shell"
     ],
 }

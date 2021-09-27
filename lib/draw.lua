@@ -1,10 +1,6 @@
-local mathb = import("mathb")
-local Grid = import("grid")
-
 local PixelSize = 1 --KEEP AT 1
-local debugVer = true
 
-local function lightLevelToCol(D, LinMode)
+local function lightLevelToCol(D)
     return D*255
 end
 
@@ -14,7 +10,7 @@ local function drawFromArray1D(x, y, T, Grid)
     P.currLightLevel = nil
     ---@diagnostic disable-next-line: undefined-field
     for i=1,table.getn(T) do
-        if lightLevelToCol(T[i].lightLevel,true) == P.currLightLevel then
+        if lightLevelToCol(T[i].lightLevel) == P.currLightLevel then
            if P[Pit][2] == nil then
                P[Pit][2] = 1
            end
@@ -35,7 +31,7 @@ local function drawFromArray1D(x, y, T, Grid)
     --file.close()
     
 ---@diagnostic disable-next-line: undefined-field
-    for i=1,table.getn(P) do --NOCH NICHT FERTIG
+    for i=1,table.getn(P) do 
         term.drawPixels(
             (x+P[i][1])*PixelSize,
             y*PixelSize,
@@ -47,7 +43,7 @@ local function drawFromArray1D(x, y, T, Grid)
     return P
 end
 
-local function drawFromArray2D(x, y, Grid) -- FIX THIS
+local function drawFromArray2D(x, y, Grid) 
     local oT = {} 
     ---@diagnostic disable-next-line: undefined-field
     for y1=1,table.getn(Grid.grid) do
@@ -56,9 +52,6 @@ local function drawFromArray2D(x, y, Grid) -- FIX THIS
     --debugLog(oT,"DFA2D")
 end
 
-local function f(x)
-    return x*255/15--math.floor((-480*(0.83^(x+3.08)))+271)
-end
 
 local function setPalette()
     for i=0,255 do
