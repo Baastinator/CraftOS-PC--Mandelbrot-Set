@@ -52,10 +52,12 @@ local function drawFromArray2D(x, y, Grid)
     --debugLog(oT,"DFA2D")
 end
 
-
 local function setPalette()
+    local function f(x)
+        return (-0.22*(0.987845^(x-127.5)))+1.04626
+    end    
     for i=0,255 do
-        term.setPaletteColor(i, colors.packRGB(i/255,i/255,i/255))
+        term.setPaletteColor(i, colors.packRGB(f(i),f(i),3*i/1020+1/4))
     end
 end
 
@@ -64,10 +66,6 @@ local function resetPalette()
         local r, g, b = term.nativePaletteColor(2^i)
         term.setPaletteColor(2^i, colors.packRGB(r,g,b))
     end
-    term.setPaletteColor(colors.black,colors.packRGB(0,0,0))
-    term.setPaletteColor(colors.red,colors.packRGB(1,0,0))
-    term.setPaletteColor(colors.yellow,colors.packRGB(1,1,0))
-    term.setPaletteColor(colors.green,colors.packRGB(0,1,0))    
 end
 
 return {
