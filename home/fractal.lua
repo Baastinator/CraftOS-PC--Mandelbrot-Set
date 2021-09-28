@@ -1,8 +1,8 @@
 --imports
 
-local Grid = import("grid")
-local draw = import("draw")
-local CN = import("CompNum")
+local Grid = dofile("lib/grid.lua")
+local draw = dofile("lib/draw.lua")
+local CN = dofile("lib/CompNum.lua")
 
 --globals
 
