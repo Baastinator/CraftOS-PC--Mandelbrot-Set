@@ -13,8 +13,8 @@ local key, event
 local mainLoop = true
 local renderBool = false
 
-local zoom = 0.5
-local pos = {x=1.25,y=0.5}
+local zoom = 0.4246080602404
+local pos =  {x=0,y=0}--{x = 23.369321471187,y = 37.644886911864}
 
 --side functions
 
@@ -24,12 +24,13 @@ local function keyboardInput()
     ---@diagnostic disable-next-line: undefined-field
         event, key, is_held = os.pullEvent("key") 
         if key == 20 then mainLoop = false end
-        if key == keys.numPadAdd then zoom = zoom * 1.01 renderBool = true
+        if key == keys.numPadAdd then
+            zoom = zoom * 1.01 renderBool = true
         elseif key == keys.numPadSubtract then zoom = zoom / 1.01 renderBool = true end
-        if key == keys.right then pos.x = pos.x - 0.1/zoom renderBool = true 
-        elseif key == keys.left then pos.x = pos.x + 0.1/zoom renderBool = true end
-        if key == keys.up then pos.y = pos.y + 0.1/zoom renderBool = true 
-        elseif key == keys.down then pos.y = pos.y - 0.1/zoom renderBool = true end
+        if key == keys.right then pos.x = pos.x - 1/zoom renderBool = true 
+        elseif key == keys.left then pos.x = pos.x + 1/zoom renderBool = true end
+        if key == keys.up then pos.y = pos.y + 1/zoom renderBool = true 
+        elseif key == keys.down then pos.y = pos.y - 1/zoom renderBool = true end
         key = nil
     end
 end
@@ -37,7 +38,7 @@ end
 local function render()
     for y, vx in ipairs(Grid.grid) do
         for x, vy in ipairs(vx) do
-            local C = CN.new((x/res.y)/zoom-pos.x,(y/res.y)/zoom-pos.y)
+            local C = CN.new((x-pos.x)/(res.y*zoom)-2.3,(y-pos.y)/(res.y*zoom)-1.175)
             --local C = CN.new((x/res.y*0.1)-0.65,(y/res.y*0.1)-0.7) --TWIG ZOOM 1
             --local C = CN.new((x/res.y*2)-2.3,(y/res.y*2)-1) --NO ZOOM
             local Z = CN.new(0,0)
@@ -77,6 +78,9 @@ end
 local function update()
     if renderBool then
         render()
+        local file = fs.open("home/debug/posZoom.txt","w")
+        file.write(textutils.serialise({zoom=zoom,pos=pos}))
+        file.close()
         renderBool = false
     end
 end

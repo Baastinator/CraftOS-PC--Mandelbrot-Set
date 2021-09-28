@@ -53,11 +53,17 @@ local function drawFromArray2D(x, y, Grid)
 end
 
 local function setPalette()
-    local function f(x)
-        return (-0.22*(0.987845^(x-127.5)))+1.04626
-    end    
+    local function fr(x)
+        return (-0.140959*(0.984601^(x-127.5)))+1.01949
+    end
+    local function fg(x)
+        return (-0.41188*(0.991979^(x-127.198)))+1.14716
+    end
+    local function fb(x)
+        return 3/4*x/255+1/4
+    end
     for i=0,255 do
-        term.setPaletteColor(i, colors.packRGB(f(i),f(i),3*i/1020+1/4))
+        term.setPaletteColor(i, colors.packRGB(fr(i),fg(i),fb(i)))
     end
 end
 
